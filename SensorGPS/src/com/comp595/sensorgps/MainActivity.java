@@ -1,9 +1,15 @@
 package com.comp595.sensorgps;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,7 +25,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 	LocationManager LM;
 	LocationListener LL;
 	Sensor accel, gyro, baro, temp, comp, light, magnet;
-	TextView tvgps, acc , gyr, bar, tem, com, lig, pro, mag;
+	TextView tvgps, acc, gyr, bar, tem, com, lig, pro, mag;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +41,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 		lig = (TextView) findViewById(R.id.textView7);
 		pro = (TextView) findViewById(R.id.textView8);
 		mag = (TextView) findViewById(R.id.textView9);
-		
+
 		manager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		accel = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		manager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -63,11 +69,21 @@ public class MainActivity extends Activity implements SensorEventListener {
 				int altitude = (int) location.getAltitude();
 				int accuracy = (int) location.getAccuracy();
 
-				tvgps.setText(" Altitude: " + altitude
-						+ " meters above sea level \n Accuracy: " + accuracy
-						+ " meters \n Longitude: " + longitude
-						+ " degrees west \n Latitude: " + latitude
-						+ " degrees north\n");
+				Geocoder gcd = new Geocoder(getBaseContext(),
+						Locale.getDefault());
+				List<Address> addresses = null;
+				try {
+					addresses = gcd.getFromLocation(latitude, longitude, 1);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				if (addresses.size() > 0)
+					tvgps.setText(" Altitude: " + altitude
+							+ " meters above sea level \n Accuracy: "
+							+ accuracy + " meters \n Longitude: " + longitude
+							+ " degrees west \n Latitude: " + latitude
+							+ " degrees north\n City: "
+							+ addresses.get(0).getLocality() + "\n");
 			}
 		}
 
@@ -130,8 +146,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 				direction = "South";
 			else if (azimuth > 180 && azimuth < 360)
 				direction = "West";
-			com.setText("Compass Azimuth: " + direction + " \t"
-					+ "Pitch: " + pitch + " \t" + "Roll: " + roll + "\n");
+			com.setText("Compass Azimuth: " + direction + " \t" + "Pitch: "
+					+ pitch + " \t" + "Roll: " + roll + "\n");
 		}
 	}
 
@@ -142,7 +158,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 		manager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
 		manager.registerListener(this, comp, SensorManager.SENSOR_DELAY_NORMAL);
 		manager.registerListener(this, temp, SensorManager.SENSOR_DELAY_NORMAL);
-		manager.registerListener(this, magnet, SensorManager.SENSOR_DELAY_NORMAL);
+		manager.registerListener(this, magnet,
+				SensorManager.SENSOR_DELAY_NORMAL);
 	}
 
 	@Override
