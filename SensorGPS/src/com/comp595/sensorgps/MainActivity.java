@@ -18,8 +18,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 	SensorManager manager;
 	LocationManager LM;
 	LocationListener LL;
-	Sensor accel, gyro, baro, temp, comp, light, mag;
-	TextView tvgps, tvright;
+	Sensor accel, gyro, baro, temp, comp, light, magnet;
+	TextView tvgps, acc , gyr, bar, tem, com, lig, pro, mag;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,15 @@ public class MainActivity extends Activity implements SensorEventListener {
 		setContentView(R.layout.activity_main);
 
 		tvgps = (TextView) findViewById(R.id.textView1);
-		tvright = (TextView) findViewById(R.id.textView2);
+		acc = (TextView) findViewById(R.id.textView2);
+		gyr = (TextView) findViewById(R.id.textView3);
+		bar = (TextView) findViewById(R.id.textView4);
+		tem = (TextView) findViewById(R.id.textView5);
+		com = (TextView) findViewById(R.id.textView6);
+		lig = (TextView) findViewById(R.id.textView7);
+		pro = (TextView) findViewById(R.id.textView8);
+		mag = (TextView) findViewById(R.id.textView9);
+		
 		manager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		accel = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		manager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -37,8 +45,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 		light = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
 		comp = manager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
 		temp = manager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-		mag = manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-		manager.registerListener(this, accel, SensorManager.SENSOR_DELAY_NORMAL);
+		magnet = manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 		resumeListening();
 
 		LM = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -66,24 +73,21 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 		@Override
 		public void onStatusChanged(String provider, int status, Bundle extras) {
-
 		}
 
 		@Override
 		public void onProviderEnabled(String provider) {
-
 		}
 
 		@Override
 		public void onProviderDisabled(String provider) {
-
 		}
 	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		return false;
 	}
 
 	@Override
@@ -97,27 +101,27 @@ public class MainActivity extends Activity implements SensorEventListener {
 		int speedY = (int) event.values[1];
 		int speedZ = (int) event.values[2];
 		if (sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-			tvright.setText("ACCEL \n" + "X: " + speedX + " m/s\n" + "Y: "
-					+ speedY + " m/s\n" + "Z: " + speedZ + " m/s\n");
+			acc.setText("Accelerometer X: " + speedX + " m/s\t" + " Y: "
+					+ speedY + " m/s\t" + " Z: " + speedZ + " m/s\n");
 		} else if (sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-			tvright.setText("GYRO \n" + "X: " + speedX + " \n" + "Y: " + speedY
-					+ " \n" + "Z: " + speedZ + " \n");
+			gyr.setText("Gyroscope X: " + speedX + " \t" + " Y: " + speedY
+					+ " \t" + " Z: " + speedZ + " \n");
 		} else if (sensor.getType() == Sensor.TYPE_LIGHT) {
-			tvright.setText("Light \n" + " " + speedX + " lux\n");
+			lig.setText("Light: " + speedX + " lux\n");
 		} else if (sensor.getType() == Sensor.TYPE_PRESSURE) {
-			tvright.setText("BARO \n" + " " + speedX + " mb\n");
+			bar.setText("Barometer: " + speedX + " mb\n");
 		} else if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-			tvright.setText("MAG \n" + "X: " + speedX + " \n" + "Y: " + speedY
+			mag.setText("Magnetic field: X: " + speedX + " \n" + "Y: " + speedY
 					+ " \n" + "Z: " + speedZ + " \n");
 		} else if (sensor.getType() == Sensor.TYPE_PROXIMITY) {
-			tvright.setText("PROX \n" + "X: " + speedX + " cm\n");
+			pro.setText("Proximity: " + speedX + " cm\n");
 		} else if (sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
-			tvright.setText("TEMP \n" + "X: " + speedX + " degrees celsius\n");
+			tem.setText("Thermometer: " + speedX + " degrees celsius\n");
 		} else if (sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
 			String direction = "unknown";
-			double azimuth = (double) event.values[0];
-			double pitch = (double) event.values[1];
-			double roll = (double) event.values[2];
+			int azimuth = (int) event.values[0];
+			int pitch = (int) event.values[1];
+			int roll = (int) event.values[2];
 			if (azimuth > 270 && azimuth < 90)
 				direction = "North";
 			else if (azimuth > 0 && azimuth < 180)
@@ -126,10 +130,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 				direction = "South";
 			else if (azimuth > 180 && azimuth < 360)
 				direction = "West";
-			tvright.setText("Compass \n" + "Azimuth: " + direction + " \n"
-					+ "Pitch: " + pitch + " \n" + "Roll: " + roll);
+			com.setText("Compass Azimuth: " + direction + " \t"
+					+ "Pitch: " + pitch + " \t" + "Roll: " + roll + "\n");
 		}
-
 	}
 
 	public void resumeListening() {
@@ -139,7 +142,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 		manager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
 		manager.registerListener(this, comp, SensorManager.SENSOR_DELAY_NORMAL);
 		manager.registerListener(this, temp, SensorManager.SENSOR_DELAY_NORMAL);
-		manager.registerListener(this, mag, SensorManager.SENSOR_DELAY_NORMAL);
+		manager.registerListener(this, magnet, SensorManager.SENSOR_DELAY_NORMAL);
 	}
 
 	@Override
