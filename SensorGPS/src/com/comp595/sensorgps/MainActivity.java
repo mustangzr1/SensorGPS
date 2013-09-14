@@ -1,10 +1,13 @@
 package com.comp595.sensorgps;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements SensorEventListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +19,15 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+
+	@Override
+	public void onAccuracyChanged(Sensor arg0, int arg1) {		
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent arg0) {
+		
 	}
 
 }
