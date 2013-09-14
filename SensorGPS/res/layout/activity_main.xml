@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="TextView" />
+        android:text="left" />
 
     <TextView
         android:id="@+id/textView2"
@@ -22,6 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="TextView" />
+        android:text="right" />
 
 </RelativeLayout>

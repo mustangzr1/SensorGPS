@@ -12,15 +12,16 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements SensorEventListener {
 
 	SensorManager manager;
-	TextView tv1, tv2;
+	TextView tvleft, tvright;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		tv1 = (TextView) findViewById(R.id.textView1);
-		tv2 = (TextView) findViewById(R.id.textView2);
+		tvleft = (TextView) findViewById(R.id.textView1);
+		tvright = (TextView) findViewById(R.id.textView2);
+
 	}
 
 	@Override
@@ -36,6 +37,24 @@ public class MainActivity extends Activity implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent arg0) {
 
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		finish();
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
 	}
 
 }
