@@ -64,10 +64,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 		@Override
 		public void onLocationChanged(Location location) {
 			if (location != null) {
-				int longitude = (int) location.getLongitude();
-				int latitude = (int) location.getLatitude();
+				double longitude = (double) location.getLongitude();
+				double latitude = (double) location.getLatitude();
 				int altitude = (int) location.getAltitude();
-				int accuracy = (int) location.getAccuracy();
+				double accuracy = (double) location.getAccuracy();
 
 				Geocoder gcd = new Geocoder(getBaseContext(),
 						Locale.getDefault());
