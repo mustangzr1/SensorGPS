@@ -3,16 +3,23 @@ package com.comp595.sensorgps;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.widget.TextView;
 
-public class MainActivity extends Activity implements SensorEventListener{
+public class MainActivity extends Activity implements SensorEventListener {
+	
+	SensorManager manager;
+	TextView tv1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+
 	}
 
 	@Override
@@ -22,12 +29,12 @@ public class MainActivity extends Activity implements SensorEventListener{
 	}
 
 	@Override
-	public void onAccuracyChanged(Sensor arg0, int arg1) {		
+	public void onAccuracyChanged(Sensor arg0, int arg1) {
 	}
 
 	@Override
 	public void onSensorChanged(SensorEvent arg0) {
-		
+
 	}
 
 }
