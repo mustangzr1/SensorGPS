@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="1"
+        android:text="GPS unavailable"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -24,15 +24,16 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:text="2"
+        android:text="accelerometer"
         android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/textView2"
+        android:layout_marginTop="15dp"
         android:text="TextView"
         android:textColor="@android:color/white" />
 
@@ -40,8 +41,9 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView3"
+        android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView3"
+        android:layout_marginTop="15dp"
         android:text="TextView"
         android:textColor="@android:color/white" />
 
@@ -51,15 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView4"
         android:layout_below="@+id/textView4"
-        android:text="TextView"
-        android:textColor="@android:color/white" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView5"
-        android:layout_below="@+id/textView5"
+        android:layout_marginTop="15dp"
         android:text="TextView"
         android:textColor="@android:color/white" />
 
@@ -67,8 +61,9 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_below="@+id/textView6"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_below="@+id/textView5"
+        android:layout_marginTop="15dp"
         android:text="TextView"
         android:textColor="@android:color/white" />
 
@@ -76,8 +71,9 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView7"
+        android:layout_alignLeft="@+id/textView7"
         android:layout_below="@+id/textView7"
+        android:layout_marginTop="15dp"
         android:text="TextView"
         android:textColor="@android:color/white" />
 
@@ -87,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView8"
         android:layout_below="@+id/textView8"
+        android:layout_marginTop="15dp"
         android:text="TextView"
         android:textColor="@android:color/white" />
 
