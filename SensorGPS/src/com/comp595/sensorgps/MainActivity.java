@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +26,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 	SensorManager manager;
 	LocationManager LM;
 	LocationListener LL;
-	Sensor accel, gyro, baro, temp, comp, light, magnet, prox;
-	TextView tvgps, acc, gyr, bar, tem, com, lig, pro, mag;
+	Sensor accel, gyro, baro, temp, light, magnet, prox;
+	TextView tvgps, acc, gyr, bar, tem, lig, pro, mag;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +44,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 		mag = (TextView) findViewById(R.id.textView9);
 
 		manager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		accel = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		manager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		accel = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		accel = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);		
 		gyro = manager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 		baro = manager.getDefaultSensor(Sensor.TYPE_PRESSURE);
 		light = manager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -83,16 +82,15 @@ public class MainActivity extends Activity implements SensorEventListener {
 				}
 				if (addresses.size() > 0){
 					if(addresses.get(0).getLocality() == null){
-						Toast.makeText(getApplicationContext(),"using sublocality", Toast.LENGTH_SHORT).show();
+						//Toast.makeText(getApplicationContext(),"using sublocality", Toast.LENGTH_SHORT).show();
 						tvgps.setText(" Altitude: " + altitude
 								+ " meters above sea level \n Accuracy: "
 								+ accuracy + " meters \n Longitude: " + Longitude
 								+ " degrees west \n Latitude: " + latitude
 								+ " degrees north\n City: "
 								+ addresses.get(0).getSubLocality() + "\n");
-					}
-					else{
-						Toast.makeText(getApplicationContext(),"using locality", Toast.LENGTH_SHORT).show();
+					} else{
+						//Toast.makeText(getApplicationContext(),"using locality", Toast.LENGTH_SHORT).show();
 						tvgps.setText(" Altitude: " + altitude
 							+ " meters above sea level \n Accuracy: "
 							+ accuracy + " meters \n Longitude: " + Longitude
@@ -120,6 +118,21 @@ public class MainActivity extends Activity implements SensorEventListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.about:
+			Toast t = Toast.makeText(this,"Sensor + GPS \nby Oliver Barreto\nVersion 0.2", Toast.LENGTH_SHORT);
+			t.show();
+			break;
+		case R.id.exit:
+			finish();
+			System.exit(0);
+			break;
+		}
 		return false;
 	}
 
