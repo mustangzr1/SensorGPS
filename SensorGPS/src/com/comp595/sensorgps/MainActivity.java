@@ -3,7 +3,6 @@ package com.comp595.sensorgps;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -55,12 +54,12 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 		LM = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		LL = new myLocationListener();
-		if (LocationManager.GPS_PROVIDER != null) {
-			LM.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, LL);
-		} else {
+//		if (LocationManager.GPS_PROVIDER != null) {
+//			LM.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, LL);
+//		} else {
 			Toast.makeText(getApplicationContext(),"GPS unavailable, using network", Toast.LENGTH_SHORT).show();
 			LM.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, LL);
-		}
+//		}
 	}
 
 	class myLocationListener implements LocationListener {
@@ -88,7 +87,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 								+ accuracy + " meters \n Longitude: " + Longitude
 								+ " degrees west \n Latitude: " + latitude
 								+ " degrees north\n City: "
-								+ addresses.get(0).getSubLocality() + "\n");
+								+ addresses.get(0).getSubLocality() + "\n----------------------");
 					} else{
 						//Toast.makeText(getApplicationContext(),"using locality", Toast.LENGTH_SHORT).show();
 						tvgps.setText(" Altitude: " + altitude
@@ -96,7 +95,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 							+ accuracy + " meters \n Longitude: " + Longitude
 							+ " degrees west \n Latitude: " + latitude
 							+ " degrees north\n City: "
-							+ addresses.get(0).getLocality() + "\n");
+							+ addresses.get(0).getLocality() + "\n----------------------");
 					}
 				}
 			}
@@ -148,22 +147,21 @@ public class MainActivity extends Activity implements SensorEventListener {
 		int speedZ = (int) event.values[2];
 		if (sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 			acc.setText("Accelerometer X: " + speedX + " m/s\t" + " Y: "
-					+ speedY + " m/s\t" + " Z: " + speedZ + " m/s\n");
+					+ speedY + " m/s\t" + " Z: " + speedZ + " m/s\n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_GYROSCOPE) {
 			gyr.setText("Gyroscope X: " + speedX + " \t" + " Y: " + speedY
-					+ " \t" + " Z: " + speedZ + " \n");
+					+ " \t" + " Z: " + speedZ + " \n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_LIGHT) {
-			lig.setText("Light: " + speedX + " lux\n");
+			lig.setText("Light: " + speedX + " lux\n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_PRESSURE) {
-			bar.setText("Barometer: " + speedX + " mb\n");
+			bar.setText("Barometer: " + speedX + " mb\n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-			mag.setText("Magnetic field: X: " + speedX + " \n" + "Y: " + speedY
-					+ " \n" + "Z: " + speedZ + " \n");
+			mag.setText("Magnetic field: X: " + speedX + " Y: " + speedY + " Z: " + speedZ + " \n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_PROXIMITY) {
 			if (event.values[0] >= 1)
-				pro.setText("Proximity \n" + "Max range: " + event.values[0] + " cm\n");
+				pro.setText("Proximity \n" + "Max range: " + event.values[0] + " cm\n----------------------");
 			else 
-				pro.setText("Proximity \n" + "Min range: " + event.values[0] + " cm\n");
+				pro.setText("Proximity \n" + "Min range: " + event.values[0] + " cm\n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
 			int tempcel = speedX;
 			int tempfah = (int) ((tempcel * 1.8) + 32);
@@ -171,7 +169,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 			tem.setText("Temperature \n" + 
 					tempcel + "  degrees Celsius " +
 					tempfah + " degrees Fahrenheit " +
-					tempkel + " degrees Kelvin");
+					tempkel + " degrees Kelvin\n----------------------");
 		} 
 	}
 
