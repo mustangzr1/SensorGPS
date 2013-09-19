@@ -160,10 +160,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 			acc.setText("Accelerometer X: " + speedX + " m/s\t" + " \nY: "
 					+ speedY + " m/s\t" + " \nZ: " + speedZ + " m/s\n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-			gyr.setText("Gyroscope X: " + speedX + " Angular speed \t" + " \nY: " + speedY
-					+ " Angular speed \t" + " \nZ: " + speedZ + " Angular speed \n----------------------");
+			gyr.setText("Gyroscope X: " + speedX + " rad/s \t" + " \nY: " + speedY
+					+ " rad/s \t" + " \nZ: " + speedZ + " rad/s \n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_LIGHT) {
-			
 			lig.setText("Light: " + speedX + " lux\n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_PRESSURE) {
 			bar.setText("Barometer: " + speedX + " mb\n----------------------");
