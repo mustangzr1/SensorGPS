@@ -1,6 +1,7 @@
 package com.comp595.sensorgps;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 import android.hardware.Sensor;
@@ -138,38 +139,48 @@ public class MainActivity extends Activity implements SensorEventListener {
 	@Override
 	public void onAccuracyChanged(Sensor arg0, int arg1) {
 	}
+	
+	double roundbythree(double d) {
+    	DecimalFormat twoDForm = new DecimalFormat("#.###");
+    	return Double.valueOf(twoDForm.format(d));
+	}
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		Sensor sensor = event.sensor;
-		int speedX = (int) event.values[0];
-		int speedY = (int) event.values[1];
-		int speedZ = (int) event.values[2];
+		double speedX =  event.values[0];
+		double speedY =  event.values[1];
+		double speedZ =  event.values[2];
+		
+		speedX = roundbythree(speedX);
+		speedY = roundbythree(speedY);
+		speedZ = roundbythree(speedZ);
+		
 		if (sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-			acc.setText("Accelerometer X: " + speedX + " m/s\t" + " Y: "
-					+ speedY + " m/s\t" + " Z: " + speedZ + " m/s\n----------------------");
+			acc.setText("Accelerometer X: " + speedX + " m/s\t" + " \nY: "
+					+ speedY + " m/s\t" + " \nZ: " + speedZ + " m/s\n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-			gyr.setText("Gyroscope X: " + speedX + " \t" + " Y: " + speedY
-					+ " \t" + " Z: " + speedZ + " \n----------------------");
+			gyr.setText("Gyroscope X: " + speedX + " Angular speed \t" + " \nY: " + speedY
+					+ " Angular speed \t" + " \nZ: " + speedZ + " Angular speed \n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_LIGHT) {
 			
 			lig.setText("Light: " + speedX + " lux\n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_PRESSURE) {
 			bar.setText("Barometer: " + speedX + " mb\n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-			mag.setText("Magnetic field: X: " + speedX + " Y: " + speedY + " Z: " + speedZ + " \n----------------------");
+			mag.setText("Magnetic field: X: " + speedX + " uT \nY: " + speedY + " uT \nZ: " + speedZ + " uT \n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_PROXIMITY) {
 			if (event.values[0] >= 1)
 				pro.setText("Proximity \n" + "Max range: " + event.values[0] + " cm\n----------------------");
 			else 
 				pro.setText("Proximity \n" + "Min range: " + event.values[0] + " cm\n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
-			int tempcel = speedX;
-			int tempfah = (int) ((tempcel * 1.8) + 32);
-			int tempkel = (int) (tempcel + 273.15);
+			double tempcel = speedX;
+			double tempfah =  ((tempcel * 1.8) + 32);
+			double tempkel =  (tempcel + 273.15);
 			tem.setText("Temperature \n" + 
-					tempcel + "  degrees Celsius " +
-					tempfah + " degrees Fahrenheit " +
+					tempcel + " degrees Celsius \n" +
+					tempfah + " degrees Fahrenheit \n" +
 					tempkel + " degrees Kelvin\n----------------------");
 		} 
 	}
