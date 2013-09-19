@@ -54,12 +54,12 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 		LM = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		LL = new myLocationListener();
-//		if (LocationManager.GPS_PROVIDER != null) {
-//			LM.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, LL);
-//		} else {
+		if (LocationManager.GPS_PROVIDER != null) {
+			LM.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, LL);
+		} else {
 			Toast.makeText(getApplicationContext(),"GPS unavailable, using network", Toast.LENGTH_SHORT).show();
 			LM.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, LL);
-//		}
+		}
 	}
 
 	class myLocationListener implements LocationListener {
@@ -152,6 +152,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 			gyr.setText("Gyroscope X: " + speedX + " \t" + " Y: " + speedY
 					+ " \t" + " Z: " + speedZ + " \n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_LIGHT) {
+			
 			lig.setText("Light: " + speedX + " lux\n----------------------");
 		} if (sensor.getType() == Sensor.TYPE_PRESSURE) {
 			bar.setText("Barometer: " + speedX + " mb\n----------------------");
